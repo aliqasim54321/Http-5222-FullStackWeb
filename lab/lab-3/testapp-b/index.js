@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path"); //needed when setting up static/file paths
 const { MongoClient,ObjectId } = require("mongodb"); //get the MongoClient class of objects so we can create one
+const { rmSync } = require("fs");
+const { title } = require("process");
 
 //create a new MongoClient
 const dbUrl = "mongodb://127.0.0.1:27017/";
@@ -71,6 +73,35 @@ app.get("/admin/menu/delete", async (request, response) => {
   response.redirect("/admin/menu");
 });
 
+//path for processing the update form
+app.get("/admin/menu/edit",async(request,response)=>{
+  if(request.query.linkId){
+    let linkToEdit = await getSingleLink(request.query.linkId);
+    let links = await getLinks();
+    response.render("menu-edit",{title: "Edit menu link", menu : links, editLink:linkToEdit});
+  }
+    else{
+      response.redirect("/admin/menu")
+  }
+})
+
+
+//path for processing the edit form
+app.post("/admin/menu/edit/submit", async(request,response) =>{
+  let wgt = request.body.weight;
+  let href = request.body.path;
+  let tex = request.body.name;
+
+  let Link = {
+    weight:wgt,
+    path:href,
+    name:tex
+  };
+  await editLink(Link);
+  response.redirect("admin/menu");
+});
+
+
 //set up server listening
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
@@ -104,3 +135,18 @@ async function deleteLink(id) {
   if (result.deletedCount == 1) console.log("delete successful");
 }
   
+
+//Update one document by id
+async function getSingleLink(id){
+  db = await connection();
+  const editId = {_id: new ObjectId(id)};
+  const result = await db.collection("menuLinks").findOne(editId);
+  return result;
+}
+
+//edit the document 
+async function editLink(Link){
+  db = await connection();
+  let status = await db.collection("menuLinks").updateOne(Link);
+  console.log("Link is edited");
+}
