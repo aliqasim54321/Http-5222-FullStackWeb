@@ -74,7 +74,7 @@ app.get("/admin/menu/delete", async (request, response) => {
 });
 
 //path for processing the update form
-app.get("/admin/menu/edit",async(request,response)=>{
+app.post("/admin/menu/edit",async(request,response)=>{
   if(request.query.linkId){
     let linkToEdit = await getSingleLink(request.query.linkId);
     let links = await getLinks();
@@ -87,8 +87,8 @@ app.get("/admin/menu/edit",async(request,response)=>{
 
 
 //path for processing the edit form
-app.post("/admin/menu/edit/submit", async(request,response) =>{
-  let wgt = request.body.weight;
+app.get("/admin/menu/edit/submit", async(request,response) =>{
+  let wgt = parseInt(request.body.weight);
   let href = request.body.path;
   let tex = request.body.name;
 
@@ -147,6 +147,9 @@ async function getSingleLink(id){
 //edit the document 
 async function editLink(Link){
   db = await connection();
-  let status = await db.collection("menuLinks").updateOne(Link);
+
+  let s = {$set:Link};
+
+  let status = await db.collection("menuLinks").updateOne(s);
   console.log("Link is edited");
 }
