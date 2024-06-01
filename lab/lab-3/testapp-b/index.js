@@ -74,7 +74,7 @@ app.get("/admin/menu/delete", async (request, response) => {
 });
 
 //path for processing the update form
-app.post("/admin/menu/edit",async(request,response)=>{
+app.get("/admin/menu/edit",async(request,response)=>{
   if(request.query.linkId){
     let linkToEdit = await getSingleLink(request.query.linkId);
     let links = await getLinks();
@@ -87,7 +87,7 @@ app.post("/admin/menu/edit",async(request,response)=>{
 
 
 //path for processing the edit form
-app.get("/admin/menu/edit/submit", async(request,response) =>{
+app.post("/admin/menu/edit/submit", async(request,response) =>{
   let wgt = parseInt(request.body.weight);
   let href = request.body.path;
   let tex = request.body.name;
