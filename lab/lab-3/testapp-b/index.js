@@ -91,14 +91,17 @@ app.post("/admin/menu/edit/submit", async(request,response) =>{
   let wgt = parseInt(request.body.weight);
   let href = request.body.path;
   let tex = request.body.name;
+  let id = request.body.linkId;
 
   let Link = {
     weight:wgt,
     path:href,
-    name:tex
+    name:tex,
+    _id: new ObjectId(id)
+    
   };
   await editLink(Link);
-  response.redirect("admin/menu");
+  response.redirect("/admin/menu");
 });
 
 
@@ -147,9 +150,11 @@ async function getSingleLink(id){
 //edit the document 
 async function editLink(Link){
   db = await connection();
-
+  let filter ={ _id: new ObjectId(Link._id) };
   let s = {$set:Link};
 
-  let status = await db.collection("menuLinks").updateOne(s);
+  let status = await db.collection("menuLinks").updateOne(filter,s);
+  // return status;
   console.log("Link is edited");
+  console.log(status);
 }
