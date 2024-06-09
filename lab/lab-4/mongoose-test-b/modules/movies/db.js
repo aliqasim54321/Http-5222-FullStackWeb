@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 //const dbUrl = `mongodb://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?authSource=testdb`;
 const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}`;
 
+// driver code taken from the cluster1 of the atlas
+// mongodb+srv://<username>:<password>@cluster1.dvpekyp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
+
+
 //set up Schema and model
 const movieSchema = new mongoose.Schema({
   title: String,
