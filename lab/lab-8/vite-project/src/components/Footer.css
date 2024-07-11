@@ -1,0 +1,32 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .footer-links, .social-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+  }
+  
+  .footer-links a, .social-media a {
+    margin: 0 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover, .social-media a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .copyright {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
