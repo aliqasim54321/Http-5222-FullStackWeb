@@ -1,0 +1,18 @@
+{
+  "name": "travel_companion",
+  "version": "1.0.0",
+  "description": "An guide for travelling around the world",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^3.0.2",
+    "express": "^4.19.2",
+    "jsdom": "^24.1.1",
+    "nodemon": "^3.1.4",
+    "pug": "^3.0.3"
+  }
+}
