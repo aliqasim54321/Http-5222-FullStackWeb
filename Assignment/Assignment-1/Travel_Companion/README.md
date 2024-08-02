@@ -2,7 +2,7 @@
 
 Travel Companion is a web application that provides weather forecasts and hotel information for various cities.
 
-# .ENV File
+## .ENV File
 
 Create a .env file in the root directory of your project and add the following environment variables:
 
